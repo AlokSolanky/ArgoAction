@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: votingacr.azurecr.io/voting-backend:5120f051ab509cf605f7cb45ec356e6260fe99c0
+          image: votingacr.azurecr.io/voting-backend:343f35a3fd4f54593fd86e1cf83c3ffb62d29a22
           ports:
             - containerPort: 5000
           env:

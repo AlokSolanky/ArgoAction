@@ -55,6 +55,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }}
           git add k8s/backend-deployment.yaml k8s/frontend-deployment.yaml
           git commit -m "ci: update image tags to ${{ github.sha }}"
           git push

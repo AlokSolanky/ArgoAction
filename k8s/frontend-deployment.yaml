@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: votingacr.azurecr.io/voting-frontend:8c02607d7752a5b42daee7ecead8b06e67c64047
+          image: votingacr.azurecr.io/voting-frontend:d16f83bbcffde1ee1de9a593689561e7a68a3651
           ports:
             - containerPort: 80
           resources:

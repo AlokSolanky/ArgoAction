@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
+  namespace: voting-system
 spec:
   replicas: 2
   selector:
@@ -14,11 +15,35 @@ spec:
     spec:
       containers:
         - name: backend-container
-          image: aloksolanky/voting-backend:latest
+          image: votingacr.azurecr.io/voting-backend:PLACEHOLDER
           ports:
             - containerPort: 5000
           env:
             - name: MONGO_URI
-              value: mongodb://mongo-service:27017/votingdb
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_URI
             - name: PORT
               value: "5000"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "300m"
+          readinessProbe:
+            httpGet:
+              path: /votes
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /votes
+              port: 5000
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 3
